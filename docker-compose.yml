@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  cousy:
+    build: .
+    container_name: cousy
+    restart: unless-stopped
+    ports:
+      - "3099:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-cousy-secret}
+      - ICAL_TOKEN=${ICAL_TOKEN:-cousy-cal-secret}
+      - PORT=3000
