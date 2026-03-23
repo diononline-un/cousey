@@ -18,6 +18,10 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  color-scheme: dark;
+}
+
 html, body {
   font-family: var(--font);
   font-size: 15px;
@@ -62,7 +66,7 @@ textarea, select {
   outline: none;
   transition: border-color 150ms ease;
 }
-input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+input:focus-visible, textarea:focus-visible, select:focus-visible { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: -1px; }
 textarea { resize: vertical; min-height: 80px; }
 select { appearance: none; cursor: pointer; }
 
@@ -77,9 +81,11 @@ select { appearance: none; cursor: pointer; }
   font-weight: 600;
   font-family: var(--font);
   cursor: pointer;
+  touch-action: manipulation;
   transition: background 150ms ease;
   min-height: 44px;
 }
+.btn-primary:hover { background: var(--accent-hover); }
 .btn-primary:active { background: var(--accent-hover); }
 
 .btn-secondary {
@@ -91,9 +97,11 @@ select { appearance: none; cursor: pointer; }
   font-size: 14px;
   font-family: var(--font);
   cursor: pointer;
+  touch-action: manipulation;
   transition: background 150ms ease;
   min-height: 44px;
 }
+.btn-secondary:hover { background: var(--card-hover); }
 .btn-secondary:active { background: var(--card-hover); }
 
 .btn-danger {
@@ -130,13 +138,16 @@ select { appearance: none; cursor: pointer; }
   font-family: var(--font);
   font-weight: 500;
   cursor: pointer;
+  touch-action: manipulation;
   padding: 8px;
   min-height: 44px;
   min-width: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 150ms ease;
 }
+.header-btn:hover { color: var(--accent-hover); }
 
 /* Content */
 #content {
@@ -166,11 +177,13 @@ select { appearance: none; cursor: pointer; }
   border: none;
   color: var(--text3);
   cursor: pointer;
+  touch-action: manipulation;
   transition: color 150ms ease;
   min-height: 44px;
 }
 .nav-btn svg { width: 20px; height: 20px; }
 .nav-btn span { font-size: 10px; font-family: var(--font); }
+.nav-btn:hover { color: var(--text2); }
 .nav-btn.active { color: var(--accent); }
 
 /* Cards */
@@ -202,6 +215,7 @@ select { appearance: none; cursor: pointer; }
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 16px;
   padding-bottom: max(16px, env(safe-area-inset-bottom));
   animation: slideUp 200ms ease;
@@ -236,11 +250,12 @@ select { appearance: none; cursor: pointer; }
   color: var(--text2);
   white-space: nowrap;
   cursor: pointer;
+  touch-action: manipulation;
   font-family: var(--font);
   min-height: 44px;
   display: flex;
   align-items: center;
-  transition: all 150ms ease;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 .chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
@@ -254,7 +269,8 @@ select { appearance: none; cursor: pointer; }
   border: 2px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
-  transition: all 150ms ease;
+  touch-action: manipulation;
+  transition: background 150ms ease, border-color 150ms ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -273,6 +289,7 @@ input[type="range"] {
   outline: none;
   margin: 0;
 }
+input[type="range"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
 input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 24px;
@@ -363,10 +380,11 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 4px;
   flex-shrink: 0;
   cursor: pointer;
+  touch-action: manipulation;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease;
 }
 .action-check.done { background: var(--success); border-color: var(--success); }
 .action-check.done::after { content: '✓'; color: #fff; font-size: 12px; }
@@ -426,6 +444,7 @@ input[type="range"]::-webkit-slider-thumb {
   z-index: 50;
   transition: background 150ms ease;
 }
+.fab:hover { background: var(--accent-hover); }
 .fab:active { background: var(--accent-hover); }
 
 /* Milestone */
@@ -703,7 +722,8 @@ input[type="range"]::-webkit-slider-thumb {
 .cm-btn {
   padding: 6px 10px; border-radius: 8px; font-size: 0.75rem;
   border: 1px solid var(--border); background: var(--card);
-  color: var(--text2); cursor: pointer; transition: all 0.2s;
+  color: var(--text2); cursor: pointer; touch-action: manipulation;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 .cm-btn.active { background: rgba(52,211,153,0.15); border-color: var(--success); color: var(--success); }
 
@@ -713,7 +733,8 @@ input[type="range"]::-webkit-slider-thumb {
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   padding: 8px 10px; border-radius: 8px; font-size: 0.75rem;
   border: 2px solid transparent; background: var(--card);
-  color: var(--text2); cursor: pointer; transition: all 0.2s;
+  color: var(--text2); cursor: pointer; touch-action: manipulation;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 .flow-btn .flow-icon { font-size: 1.2rem; }
 .flow-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
@@ -753,3 +774,41 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .empty-icon { font-size: 2rem; margin-bottom: 8px; }
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: var(--font);
+  font-size: 14px;
+  text-decoration: none;
+  z-index: 200;
+  border-radius: 0 0 var(--radius) 0;
+}
+.skip-link:focus { top: 0; }
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
